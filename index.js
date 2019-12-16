@@ -2,8 +2,7 @@
 // const Fs = require('fs')  
 // const Path = require('path')  
 // const Util = require('util')  
-// const Puppeteer = require('puppeteer')  
-// const Handlebars = require('handlebars')  
+// const Puppeteer = require('puppeteer')   
 // const ReadFile = Util.promisify(Fs.readFile)
 
 
@@ -13,18 +12,59 @@
 //     res.send(pdf);
 // }
 
-const fs = require("fs");
-//   convertFactory = require('electron-html-to');
+// var fs = require('fs');
+// var pdf = require('html-pdf');
+// var html = fs.readFileSync('./index.html', 'utf8');
+// var options = { format: 'Letter' };
+ 
+// pdf.create(html, options).toFile('./profile.pdf', function(err, res) {
+//   if (err) return console.log(err);
+//   console.log(res); // { filename: '/app/businesscard.pdf' }
+// });
+
+
+
+// var fs = require('fs'),
+//     convertFactory = require('electron-html-to');
+ 
 // var conversion = convertFactory({
 //   converterPath: convertFactory.converters.PDF
-// })
-const inquirer = require("inquirer");
-const util = require("util");
-const writeFileAsync = util.promisify(fs.writeFile);
-// const axios = require("axios");
+// });
+
+
+// const inquirer = require("inquirer");
+// const util = require("util");
+// const writeFileAsync = util.promisify(fs.writeFile);
 // require("dotnv").config();
 // var open = require("open");
 // var path = require("path");
+
+
+
+// const convertHTMLToPDF = require("pdf-puppeteer");
+ 
+// var callback = function (pdf) {
+//     // do something with the PDF like send it as the response
+//     res.setHeader("Content-Type", "application/pdf");
+//     res.send(pdf);
+// }
+// var fs = require('fs');
+// var htmlPdf = require("html-pdf");
+// var html = fs.readFileSync('./index.html', 'utf8');
+// var options = { format: 'Letter' };
+
+// pdf.create(html, options).toFile('profile.pdf', function(err, res) {
+//   if (err) return console.log(err);
+//   console.log(res); // { filename: '/app/businesscard.pdf' }
+// });
+
+const fs = require("fs");
+const inquirer = require("inquirer");
+const util = require("util");
+// const axios = require("axios");
+const convertHTMLToPDF = require("pdf-puppeteer");
+
+const writeFileAsync = util.promisify(fs.writeFile);
 
 
 
@@ -123,7 +163,7 @@ function generateHTML(answers) {
   <body>
     <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">Hi! My name is ${answers.name}</h1>
+      <h1 class="display-4">Hi! My name is ${answers.name}.</h1>
       <p class="lead">I am from ${answers.location}.</p>
       <img src='${answers.photo}' class="profilepic" />
       <h3>About Me</h3>
@@ -146,7 +186,6 @@ function generateHTML(answers) {
 promptUser()
   .then(function (answers) {
     const html = generateHTML(answers);
-    // , githubData, googleMapsData
     const options = {
       path: "profile.pdf",
       printBackground: true
@@ -159,15 +198,4 @@ promptUser()
   })
   .catch(function (err) {
     console.log(err);
-  });
-
-// convertHTMLToPDF(html, callback, options, puppeteerArgs, remoteContent);
-
-// var pdf = require('html-pdf');
-// var html = fs.readFileSync('./index.html', 'utf8');
-// var options = { format: 'Letter' };
- 
-// pdf.create(html, options).toFile('./profile.pdf', function(err, res) {
-//   if (err) return console.log(err);
-//   console.log(res); // { filename: '/app/businesscard.pdf' }
-// });
+});
